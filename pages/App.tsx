@@ -133,10 +133,11 @@ const Li = React.forwardRef<any, any>(
 
 function TodoApp() {
   const [todoItems, setTodoItems] = React.useState(_items2);
+  const [t, setT] = React.useState("");
 
   const todoItemsId = "flip-todo-items";
 
-  useFlip(todoItemsId, { duration: 2000 });
+  useFlip(todoItemsId, { duration: 800 });
 
   const removeFromItems = (id) =>
     setTodoItems(todoItems.filter((i) => i.id !== id));
@@ -158,47 +159,69 @@ function TodoApp() {
   const doneStyle = { backgroundColor: "#5209d5" };
 
   return (
-    <div className={"flex justify-center"}>
-      <div className={styles["named-list"]}>
-        <h2 className={styles["center"]}>TODO</h2>
-        <ul data-flip-root-id={todoItemsId} className={styles["list"]}>
-          <AnimateInOut itemAmount={todoItems.length}>
-            {todoItems
-              .filter((i) => !i.done)
-              .map((item) => (
-                <Li
-                  key={item.id}
-                  item={item}
-                  data-flip-id={`flip-id-${item.id}`}
-                  changeToDone={changeToDone}
-                  removeFromItems={removeFromItems}
-                />
-              ))}
-          </AnimateInOut>
-        </ul>
-      </div>
+    <>
+      <input
+        value={t}
+        type="text"
+        onChange={(e) => setT(e.target.value)}
+      ></input>
+      <button
+        onClick={() =>
+          setTodoItems([
+            ...todoItems,
+            {
+              id: "x",
+              done: false,
+              nid: todoItems.length + 1,
+              text: t,
+            },
+          ])
+        }
+      >
+        add
+      </button>
+      <div className="flex justify-center">
+        <div className={styles["named-list"]}>
+          <h2 className={styles["center"]}>TODO</h2>
+          <ul data-flip-root-id={todoItemsId} className={styles["list"]}>
+            <AnimateInOut itemAmount={todoItems.length}>
+              {todoItems
+                .filter((i) => !i.done)
+                .map((item) => (
+                  <Li
+                    key={item.id}
+                    item={item}
+                    data-flip-id={`flip-id-${item.id}`}
+                    changeToDone={changeToDone}
+                    removeFromItems={removeFromItems}
+                  />
+                ))}
+            </AnimateInOut>
+          </ul>
+        </div>
 
-      <div className={styles["named-list"]}>
-        <h2 className={styles["center"]}>DONE</h2>
-        <ul data-flip-root-id={todoItemsId} className={styles["list"]}>
-          <AnimateInOut itemAmount={todoItems.length}>
-            {todoItems
-              .filter((i) => i.done)
-              .map((item) => (
-                <li
-                  style={doneStyle}
-                  key={item.id}
-                  data-flip-id={`flip-id-${item.id}`}
-                  className={styles["todo-list-item"]}
-                >
-                  <RemoveButton onClick={() => removeFromItems(item.id)} />
-                  <Checkbox onChange={undo} item={item} />
-                </li>
-              ))}
-          </AnimateInOut>
-        </ul>
+        <div className={styles["named-list"]}>
+          <h2 className={styles["center"]}>DONE</h2>
+          <ul data-flip-root-id={todoItemsId} className={styles["list"]}>
+            <AnimateInOut itemAmount={todoItems.length}>
+              {todoItems
+                .filter((i) => i.done)
+                .map((item) => (
+                  <li
+                    style={doneStyle}
+                    key={item.id}
+                    data-flip-id={`flip-id-${item.id}`}
+                    className={styles["todo-list-item"]}
+                  >
+                    <RemoveButton onClick={() => removeFromItems(item.id)} />
+                    <Checkbox onChange={undo} item={item} />
+                  </li>
+                ))}
+            </AnimateInOut>
+          </ul>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
