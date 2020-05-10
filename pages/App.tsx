@@ -27,11 +27,10 @@ const todos = [
   "Cook pasta",
   "Buy coffee beans",
   "Do a quick workout",
-  "Fix some bugs",
   "Buy fresh bread",
 ];
 
-const _items2 = Array(10)
+const _items2 = Array(9)
   .fill(0)
   .map((_, i) => {
     const id = ids[i];
@@ -116,63 +115,69 @@ function TodoApp() {
 
   return (
     <>
-      <input
-        value={t}
-        type="text"
-        onChange={(e) => setT(e.target.value)}
-      ></input>
-      <button
-        onClick={() =>
-          setTodoItems([
-            ...todoItems,
-            {
-              id: "k",
-              done: false,
-              nid: todoItems.length + 1,
-              text: t,
-            },
-          ])
-        }
-      >
-        add
-      </button>
-      <div className="flex justify-center">
-        <div className="p-4">
-          <h2 className="text-center">TODO</h2>
-          <ul data-flip-root-id={todoItemsId} className="flex flex-col p-0">
-            <AnimateInOut itemAmount={todoItems.length}>
-              {todoItems
-                .filter((i) => !i.done)
-                .map((item) => (
-                  <Li
-                    key={item.id}
-                    item={item}
-                    data-flip-id={`flip-id-${item.id}`}
-                    onChange={changeToDone}
-                    removeFromItems={removeFromItems}
-                  />
-                ))}
-            </AnimateInOut>
-          </ul>
+      <div className="flex flex-col pt-4">
+        <div className="flex justify-center">
+          <input
+            className="focus:outline-none focus:shadow-outline rounded-md border border-purple-300 py-2 px-4 appearance-none leading-normal"
+            value={t}
+            type="text"
+            onChange={(e) => setT(e.target.value)}
+          ></input>
+          <button
+            className="ml-2 bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded-lg"
+            onClick={() =>
+              setTodoItems([
+                ...todoItems,
+                {
+                  id: "k",
+                  done: false,
+                  nid: todoItems.length + 1,
+                  text: t,
+                },
+              ])
+            }
+          >
+            Add
+          </button>
         </div>
+        <div className="flex justify-center">
+          <div className="p-4">
+            <h2 className="font-bold text-2xl py-1 text-center">TODO</h2>
+            <ul data-flip-root-id={todoItemsId} className="flex flex-col p-0">
+              <AnimateInOut itemAmount={todoItems.length}>
+                {todoItems
+                  .filter((i) => !i.done)
+                  .map((item) => (
+                    <Li
+                      key={item.id}
+                      item={item}
+                      data-flip-id={`flip-id-${item.id}`}
+                      onChange={changeToDone}
+                      removeFromItems={removeFromItems}
+                    />
+                  ))}
+              </AnimateInOut>
+            </ul>
+          </div>
 
-        <div className="p-4">
-          <h2 className="text-center">DONE</h2>
-          <ul data-flip-root-id={todoItemsId} className="flex flex-col p-0">
-            <AnimateInOut itemAmount={todoItems.length}>
-              {todoItems
-                .filter((i) => i.done)
-                .map((item) => (
-                  <Li
-                    item={item}
-                    key={item.id}
-                    data-flip-id={`flip-id-${item.id}`}
-                    removeFromItems={removeFromItems}
-                    onChange={undo}
-                  ></Li>
-                ))}
-            </AnimateInOut>
-          </ul>
+          <div className="p-4">
+            <h2 className="font-bold text-2xl py-1 text-center">DONE</h2>
+            <ul data-flip-root-id={todoItemsId} className="flex flex-col p-0">
+              <AnimateInOut itemAmount={todoItems.length}>
+                {todoItems
+                  .filter((i) => i.done)
+                  .map((item) => (
+                    <Li
+                      item={item}
+                      key={item.id}
+                      data-flip-id={`flip-id-${item.id}`}
+                      removeFromItems={removeFromItems}
+                      onChange={undo}
+                    ></Li>
+                  ))}
+              </AnimateInOut>
+            </ul>
+          </div>
         </div>
       </div>
     </>
