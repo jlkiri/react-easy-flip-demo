@@ -11,13 +11,28 @@
 }
 
 .shrink {
-  height: 100px;
+  height: 80px;
 }
 
 .expand {
-  height: 400px;
+  height: 180px;
 }
 
-.expanded {
-  height: 30%;
+.text {
+  position: relative;
+  top: 10px;
+  animation: appear;
+  animation-delay: 1s;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  opacity: 0;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
