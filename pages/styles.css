@@ -10,10 +10,14 @@
   right: 0;
 }
 
-.expanded {
-  transform: scaleY(3);
+.shrink {
+  height: 100px;
 }
 
-.shrinked {
-  transform: scaleY(0.3);
+.expand {
+  height: 400px;
+}
+
+.expanded {
+  height: 30%;
 }
