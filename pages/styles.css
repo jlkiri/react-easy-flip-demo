@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#__next {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.expanded {
+  transform: scaleY(3);
+}
+
+.shrinked {
+  transform: scaleY(0.3);
+}
