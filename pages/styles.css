@@ -10,6 +10,11 @@
   right: 0;
 }
 
+li {
+  will-change: transform;
+  height: 50px;
+}
+
 .shrink {
   height: 80px;
 }

@@ -16,29 +16,13 @@ const TrashCan = () => (
   </svg>
 );
 
-const ids = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
-
-const todos = [
-  "Wash dishes",
-  "Feed the cat",
-  "Read a book",
-  "Do laundry",
-  "Learn Russian",
-  "Cook pasta",
-  "Buy coffee beans",
-  "Do a quick workout",
-  "Buy fresh bread",
-];
-
-const _items2 = Array(9)
+const _items = Array(9)
   .fill(0)
   .map((_, i) => {
-    const id = ids[i];
     return {
-      id: id,
-      done: i === 0,
+      id: `id${i}`,
+      done: i === 0 || i === 1,
       nid: i + 1,
-      text: todos[i],
     };
   });
 
@@ -77,9 +61,10 @@ const Li = React.forwardRef<any, any>(
       <li
         key={item.id}
         data-flip-id={`flip-id-${item.id}`}
-        className="w-64 text-white relative flex items-center mb-2 rounded-lg text-lg select-none bg-gray-700"
+        className={`w-64 text-white relative flex items-center mb-2 rounded-lg text-lg select-none ${
+          item.done ? "bg-purple-700" : "bg-pink-600"
+        }`}
         ref={ref}
-        style={item.done ? doneStyle : {}}
       >
         <RemoveButton onClick={() => removeFromItems(item.id)} />
         <Checkbox onChange={onChange} item={item} />
@@ -89,12 +74,13 @@ const Li = React.forwardRef<any, any>(
 );
 
 function TodoApp() {
-  const [todoItems, setTodoItems] = React.useState(_items2);
+  const [todoItems, setTodoItems] = React.useState(_items);
   const [t, setT] = React.useState("");
+  const lastId = React.useRef(todoItems.length);
 
   const todoItemsId = "flip-todo-items";
 
-  useFlip(todoItemsId, { duration: 700 }, todoItems.length);
+  useFlip(todoItemsId, { duration: 1500 }, todoItems.length);
 
   const removeFromItems = (id) =>
     setTodoItems(todoItems.filter((i) => i.id !== id));
@@ -115,7 +101,7 @@ function TodoApp() {
 
   return (
     <>
-      <div className="flex flex-col pt-4">
+      <div className="flex flex-col pt-4 bg-gray-800 w-full h-full">
         <div className="flex justify-center">
           <input
             className="focus:outline-none focus:shadow-outline rounded-md border border-purple-300 py-2 px-4 appearance-none leading-normal"
@@ -125,25 +111,28 @@ function TodoApp() {
           ></input>
           <button
             className="ml-2 bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded-lg"
-            onClick={() =>
+            onClick={() => {
               setTodoItems([
                 ...todoItems,
                 {
-                  id: "k",
+                  id: `id${lastId.current}`,
                   done: false,
-                  nid: todoItems.length + 1,
-                  text: t,
+                  nid: lastId.current + 1,
                 },
-              ])
-            }
+              ]);
+
+              lastId.current++;
+            }}
           >
             Add
           </button>
         </div>
-        <div className="flex justify-center">
+        <div
+          data-flip-root-id={todoItemsId}
+          className="flex w-full h-full justify-center"
+        >
           <div className="p-4">
-            <h2 className="font-bold text-2xl py-1 text-center">TODO</h2>
-            <ul data-flip-root-id={todoItemsId} className="flex flex-col p-0">
+            <ul className="flex flex-col p-0">
               <AnimateInOut itemAmount={todoItems.length}>
                 {todoItems
                   .filter((i) => !i.done)
@@ -151,7 +140,6 @@ function TodoApp() {
                     <Li
                       key={item.id}
                       item={item}
-                      data-flip-id={`flip-id-${item.id}`}
                       onChange={changeToDone}
                       removeFromItems={removeFromItems}
                     />
@@ -161,8 +149,7 @@ function TodoApp() {
           </div>
 
           <div className="p-4">
-            <h2 className="font-bold text-2xl py-1 text-center">DONE</h2>
-            <ul data-flip-root-id={todoItemsId} className="flex flex-col p-0">
+            <ul className="flex flex-col p-0">
               <AnimateInOut itemAmount={todoItems.length}>
                 {todoItems
                   .filter((i) => i.done)
@@ -170,7 +157,6 @@ function TodoApp() {
                     <Li
                       item={item}
                       key={item.id}
-                      data-flip-id={`flip-id-${item.id}`}
                       removeFromItems={removeFromItems}
                       onChange={undo}
                     ></Li>
