@@ -25,13 +25,9 @@ function ShuffleApp() {
 
   const todoItemsId = "flip-todo-items";
 
-  useFlip(
-    todoItemsId,
-    {
-      duration: 800,
-    },
-    todoItems.length
-  );
+  useFlip(todoItemsId, {
+    duration: 800,
+  });
 
   return (
     <FlipProvider>

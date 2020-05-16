@@ -50,9 +50,7 @@ function AutoShuffleApp() {
 
   const todoItemsId = "flip-todo-items";
 
-  useFlip(todoItemsId, {
-    duration: 800,
-  });
+  useFlip(todoItemsId);
 
   React.useEffect(() => {
     setInterval(() => {

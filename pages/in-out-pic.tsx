@@ -9,13 +9,9 @@ function InOutImageDemo() {
 
   const imagesId = "flip-images";
 
-  useFlip(
-    imagesId,
-    {
-      duration: 1800,
-    },
-    imagesId.length
-  );
+  useFlip(imagesId, {
+    duration: 1800,
+  });
 
   React.useEffect(() => {
     let i = 0;

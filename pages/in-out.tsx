@@ -15,13 +15,9 @@ function InOutDemo() {
 
   const todoItemsId = "flip-todo-items";
 
-  useFlip(
-    todoItemsId,
-    {
-      duration: 800,
-    },
-    todoItems.length
-  );
+  useFlip(todoItemsId, {
+    duration: 800,
+  });
 
   React.useEffect(() => {
     if (todoItems.length === 0) {

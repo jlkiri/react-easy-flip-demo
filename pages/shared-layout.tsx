@@ -49,11 +49,7 @@ function SharedLayoutTransitions() {
 
   const todoItemsId = "flip-todo-items";
 
-  useFlip(
-    todoItemsId,
-    { duration: 1500, animateColor: true },
-    todoItems.length
-  );
+  useFlip(todoItemsId, { duration: 1500, animateColor: true });
 
   const removeFromItems = (id) =>
     setTodoItems(todoItems.filter((i) => i.id !== id));
