@@ -3,14 +3,14 @@ import Link from "next/link";
 import * as React from "react";
 
 export default function Home() {
-  const linkClass = "underline mb-2";
+  const linkClass = "hover:text-red-300 underline mb-2";
   return (
     <>
       <Head>
         <title>react-easy-flip-demo</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="bg-gray-800 text-white font-bold w-full h-full flex flex-col justify-center items-center">
+      <div className="bg-gray-800 text-red-100 text-2xl font-bold w-full h-full flex flex-col justify-center items-center">
         <Link href="shuffle">
           <a className={linkClass}>Simple shuffle</a>
         </Link>
@@ -29,6 +29,9 @@ export default function Home() {
         <Link href="in-out-pic">
           <a className={linkClass}>In/out custom picture animations</a>
         </Link>
+      </div>
+      <div className="pb-4 w-full text-red-500 underline font-bold text-xl flex justify-center absolute bottom-0">
+        <a href="https://github.com/jlkiri/react-easy-flip">react-easy-flip</a>
       </div>
     </>
   );
