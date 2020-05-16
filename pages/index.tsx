@@ -20,6 +20,9 @@ export default function Home() {
         <Link href="shared-layout">
           <a className={linkClass}>Shared layout animations</a>
         </Link>
+        <Link href="magic-nav">
+          <a className={linkClass}>Navigation bar shared layout animation</a>
+        </Link>
         <Link href="in-out">
           <a className={linkClass}>In/out animations</a>
         </Link>
