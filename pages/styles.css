@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+.w-300 {
+  width: 300px;
+}
+
+.w-640 {
+  width: 640px;
+}
+
+.h-359 {
+  height: 359px;
+}
+
 #__next {
   position: absolute;
   top: 0;
@@ -13,31 +25,4 @@
 li {
   will-change: transform;
   height: 50px;
-}
-
-.shrink {
-  height: 80px;
-}
-
-.expand {
-  height: 180px;
-}
-
-.text {
-  position: relative;
-  top: 10px;
-  animation: appear;
-  animation-delay: 1s;
-  animation-duration: 1s;
-  animation-fill-mode: both;
-  opacity: 0;
-}
-
-@keyframes appear {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }

@@ -1,6 +1,6 @@
 import * as React from "react";
-import { nanoid } from "nanoid";
-import styles from "./App.module.css";
+import Head from "next/head";
+import { useFlip, FlipProvider } from "react-easy-flip";
 
 const shuffle = function shuffle(array: any[]) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -10,14 +10,13 @@ const shuffle = function shuffle(array: any[]) {
   return array;
 };
 
-const _items = Array(10)
+const _items = Array(7)
   .fill(0)
   .map((_, i) => {
-    const id = nanoid();
     return {
-      id: ids[i],
-      isMarked: i === 0,
-      text: `Item with id: ${id}`,
+      id: `id${i}`,
+      done: i === 0 || i === 1,
+      nid: i + 1,
     };
   });
 
@@ -29,28 +28,40 @@ function ShuffleApp() {
   useFlip(
     todoItemsId,
     {
-      duration: 500,
+      duration: 800,
     },
     todoItems.length
   );
 
   return (
-    <div>
-      <button onClick={() => setTodoItems(shuffle([...todoItems]))}>
-        Shuffle
-      </button>
-      <ul data-flip-root-id={todoItemsId} className="list">
-        {todoItems.map((item, _) => (
-          <li
-            data-flippable
-            key={item.id}
-            data-flip-id={`flip-id-${item.id}`}
-            className="list-item"
+    <FlipProvider>
+      <Head>
+        <title>react-easy-flip-demo</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <div className="flex w-full h-full justify-center items-center bg-gray-800">
+        <div className="w-1/2 text-center">
+          <button
+            className="mt-2 p-2 bg-gray-200 font-bold rounded-lg hover:bg-gray-400"
+            onClick={() => setTodoItems(shuffle([...todoItems]))}
           >
-            {item.text}
-          </li>
-        ))}
-      </ul>
-    </div>
+            Shuffle
+          </button>
+          <ul data-flip-root-id={todoItemsId} className="p-4">
+            {todoItems.map((item, _) => (
+              <li
+                key={item.id}
+                data-flip-id={`flip-id-${item.id}`}
+                className="flex items-center justify-center font-bold text-lg bg-gray-400 mb-4 bg-yellow-500 rounded-lg"
+              >
+                {item.nid}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </FlipProvider>
   );
 }
+
+export default ShuffleApp;
