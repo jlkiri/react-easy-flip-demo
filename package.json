@@ -9,7 +9,7 @@
     "link-react": "npm link ../node_modules/react"
   },
   "dependencies": {
-    "next": "9.3.6",
+    "next": "11.1.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-easy-flip": "^4.0.0-beta.1"
